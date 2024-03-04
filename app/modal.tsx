@@ -1,5 +1,6 @@
  
-    import { YStack, Paragraph, Separator, Theme } from "tamagui";
+import React from "react";
+import { YStack, Paragraph, Separator, Theme } from "tamagui";
 	import { Platform } from 'react-native'
 
 import { StatusBar } from "expo-status-bar";

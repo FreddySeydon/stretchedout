@@ -1,4 +1,4 @@
-
+import React from "react";
     import { YStack, H2, Separator, Theme } from "tamagui";
 
 

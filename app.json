@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "stretchout",
-    "slug": "stretchout",
+    "name": "stretchedout",
+    "slug": "stretchedout",
     "version": "1.0.0",
     
-      "scheme": "stretchout",
+      "scheme": "stretchedout",
       "web": {
         "bundler": "metro",
         "output": "static",
