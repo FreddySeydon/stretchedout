@@ -34,7 +34,10 @@
     "react-native-screens": "~3.29.0",
     "react-native-url-polyfill": "^2.0.0",
     "react-native-web": "~0.19.6",
-    "tamagui": "1.74.8"
+    "tamagui": "1.74.8",
+    "expo-sqlite": "~13.2.2",
+    "expo-file-system": "~16.0.7",
+    "expo-asset": "~9.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
