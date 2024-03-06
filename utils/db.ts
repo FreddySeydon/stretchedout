@@ -3,7 +3,7 @@ import * as SQLite from 'expo-sqlite';
 import { Asset } from 'expo-asset';
 
 export async function openDatabaseFirst(): Promise<SQLite.SQLiteDatabase> {
-    const pathToDatabaseFile = "../assets/collection.db"
+  const pathToDatabaseFile = '../assets/collection.db';
   if (!(await FileSystem.getInfoAsync(FileSystem.documentDirectory + 'SQLite')).exists) {
     await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + 'SQLite');
   }
@@ -15,11 +15,11 @@ export async function openDatabaseFirst(): Promise<SQLite.SQLiteDatabase> {
 }
 
 export async function queryDatabase(query: string) {
-    const db = SQLite.openDatabase('collection.db');
-
-const readOnly = true;
-await db.transactionAsync(async tx => {
-  const result = await tx.executeSqlAsync(query, []);
-  console.log(result);
-}, readOnly);
+  const db = SQLite.openDatabase('collection.db');
+  let result = null
+  const readOnly = true;
+  await db.transactionAsync(async (tx) => {
+    result = await tx.executeSqlAsync(query, []);
+  }, readOnly);
+  return result
 }
