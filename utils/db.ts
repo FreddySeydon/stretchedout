@@ -23,3 +23,8 @@ export async function queryDatabase(query: string) {
   }, readOnly);
   return result
 }
+
+export async function getOneExercise(id: string | string[]) {
+  const result = queryDatabase(`SELECT * FROM exercises WHERE id=${id}`);
+  return result;
+}

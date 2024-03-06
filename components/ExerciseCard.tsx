@@ -43,17 +43,17 @@ const ExerciseCard = ({exercise}: ExerciseCardProps) => {
 
   return (
     <View>
-        <Card elevate m="$0" width={300} height={360} scale={0.9} hoverStyle={{scale: 0.925}} pressStyle={{scale: 0.975}} onPress={goToExercise}>
+        <Card elevate m="$0" width={300} height={380} scale={0.9} hoverStyle={{scale: 0.925}} pressStyle={{scale: 0.975}} onPress={goToExercise}>
             <Card.Header m={0} p={0}>
                 <Image source={{width: 300, height: 300, uri: img}} style={{margin: 0, borderTopRightRadius: 10, borderTopLeftRadius: 10}} />
                 </Card.Header>
             <Card.Footer>
-                <YStack >
-                    <H2 fontSize={20} color={'lightblue'}>
+                <YStack  margin="$3" paddingTop="$20">
+                    <H2 color={'rgba(74, 74, 74, 1)'} paddingTop="$10">
                         {name}
                     </H2>
                     <Paragraph theme={'alt2_Card'}>
-                        {duration}
+                        Duration: {duration} seconds
                     </Paragraph>
                 </YStack>
             </Card.Footer>

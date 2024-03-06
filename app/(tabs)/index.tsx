@@ -14,9 +14,7 @@ import {
   View,
   Spinner
 } from 'tamagui';
-import { TouchableOpacity, Text, FlatList } from 'react-native';
 import ExerciseCard from '~/components/ExerciseCard';
-import * as SQLite from 'expo-sqlite';
 import { queryDatabase, openDatabaseFirst } from '~/utils/db';
 
 export default function TabOneScreen() {
