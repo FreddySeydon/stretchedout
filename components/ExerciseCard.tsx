@@ -14,7 +14,7 @@ import {
     View,
     Text,
   } from 'tamagui';
-  import { Link } from 'expo-router';
+  import { Link, router } from 'expo-router';
 
   type Exercise = {
     description: string;
@@ -36,15 +36,19 @@ import {
 
 const ExerciseCard = ({exercise}: ExerciseCardProps) => {
    const {description, duration, id, img, name} = exercise
-//    console.log("Image Path:", img, typeof(img))
-//    const requImage = require(img);
+
+   const goToExercise = () => {
+    router.push(`/exercises/${id}`)
+   }
+
   return (
-      <Link href={`/exercises/${id}`}>
-        <Card elevate m="$10" width={300} height={360} scale={0.9} hoverStyle={{scale: 0.925}} pressStyle={{scale: 0.975}}>
-            <Card.Header >
-                <Image source={{width: 300, height: 300, uri: img}} /></Card.Header>
+    <View>
+        <Card elevate m="$0" width={300} height={360} scale={0.9} hoverStyle={{scale: 0.925}} pressStyle={{scale: 0.975}} onPress={goToExercise}>
+            <Card.Header m={0} p={0}>
+                <Image source={{width: 300, height: 300, uri: img}} style={{margin: 0, borderTopRightRadius: 10, borderTopLeftRadius: 10}} />
+                </Card.Header>
             <Card.Footer>
-                <YStack p={10}>
+                <YStack >
                     <H2 fontSize={20} color={'lightblue'}>
                         {name}
                     </H2>
@@ -54,7 +58,7 @@ const ExerciseCard = ({exercise}: ExerciseCardProps) => {
                 </YStack>
             </Card.Footer>
         </Card>
-      </Link>
+      </ View>
   )
 }
 
