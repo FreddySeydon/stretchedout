@@ -47,7 +47,7 @@ programs.img,
       FROM programs_exercises
       JOIN exercises ON programs_exercises.exercise_id = exercises.id
       WHERE programs_exercises.program_id = programs.id
-  ), 0) AS program_duration
+  ), 0) AS duration
 FROM 
   programs;
 `);
@@ -70,12 +70,22 @@ export async function getOneProgramExercises(id: string | string[]) {
   return result;
 }
 
-export async function getOneProgramDuration(id: string | string[]) {
-  const queryResult = await queryDatabase(`SELECT SUM(exercises.duration) as program_duration FROM exercises
-  INNER JOIN programs_exercises ON exercises.id = programs_exercises.exercise_id
-  WHERE programs_exercises.program_id = ${id};
-  `);
+export async function getOneProgram(id: string | string[]) {
+  const queryResult = await queryDatabase(`SELECT 
+  programs.id, 
+  programs.name, 
+  programs.description,
+  programs.img,
+  COALESCE((
+      SELECT SUM(exercises.duration) 
+      FROM programs_exercises
+      JOIN exercises ON programs_exercises.exercise_id = exercises.id
+      WHERE programs_exercises.program_id = programs.id
+  ), 0) AS duration
+FROM 
+  programs
+WHERE 
+  programs.id = ${id};`);
   const result = queryResult.rows;
-  console.log("Duration: ", result)
   return result;
 }

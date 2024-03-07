@@ -27,7 +27,7 @@ const ExerciseDetailContent = ({ exerciseData }: ExerciseData) => {
   return (
     <View>
       <YStack p="$3">
-        <Image source={{ uri: img }} style={{ width: 'fit', height: 300, borderRadius: 10}} />
+        <Image source={{ uri: img }} style={{ width: 'fit', height: 300, borderTopRightRadius: 10, borderTopLeftRadius: 10}} />
         <YStack backgroundColor={'rgba(196, 176, 113, 0.55)'} borderBottomLeftRadius={10} borderBottomRightRadius={10} p="$3">
           <H2 color={textColor} >{name}</H2>
           <H3 color={textColor} pb="$2">{description}</H3>

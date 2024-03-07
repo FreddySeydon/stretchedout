@@ -1,62 +1,55 @@
 import React, {useEffect, useState} from 'react'
 import { useLocalSearchParams } from 'expo-router'
-import { Text, View, Spinner } from 'tamagui'
-import { getOneExercise, getOneProgramDuration, getOneProgramExercises, getOneProgramInfo } from '~/utils/db'
+import { Text, View, Spinner, Button } from 'tamagui'
+import { getOneExercise, getOneProgram, getOneProgramExercises, getOneProgramInfo } from '~/utils/db'
 import ExerciseDetailContent from '~/components/ExerciseDetailContent'
 import ExerciseStartButton from '~/components/ExerciseStartButton'
 
 const ProgramDetail = () => {
     const params = useLocalSearchParams();
     const [exerciseData, setExerciseData] = useState(null);
-    const [programDetail, setProgramDetail] = useState(null);
-    const [programDuration, setProgramDuration] = useState(null);
     const [programData, setProgramData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [exerciseIds, setExerciseIds] = useState(null);
 
-    useEffect(() => {
-
-        const getExercises = async() => {
-            setIsLoading(true);
-            const results = await getOneProgramExercises(params.id)
-            setExerciseData(results);
-        }
-
-      const getProgram = async() => {
-        setIsLoading(true)
-        const results = await getOneProgramInfo(params.id);
-        setProgramData(results);
-        const duration = await getOneProgramDuration(params.id)
-        setProgramDuration(duration.program_duration)
-        writeProgramDetail()
+  useEffect(() => {
+    const fetchAllData = async () => {
+      if (params.id) { // Ensure params.id is available
+        setIsLoading(true);
+        const exercisesResults = await getOneProgramExercises(params.id);
+        setExerciseData(exercisesResults);
+  
+        const programResults = await getOneProgram(params.id);
+        setProgramData(programResults[0]);
+        setIsLoading(false);
       }
-      getExercises()
-      getProgram()
-    }, [])
+    };
+  
+    fetchAllData();
+  }, [params.id]); // React to changes in params.id
+  
 
-    const writeProgramDetail = () => {
-        if(programData !== null){
-            const programDetail = {
-                id: params.id,
-                description: programData.description,
-                duration: programDuration,
-                img: programData.img,
-                name: programData.name
-            }
-            setProgramDetail(programDetail);
-        }
-    }
+  const writeExerciseIds = () => {
+    const Ids = exerciseData.map((exercise) => {
+      return exercise.id
+    })
+    const idString = Ids.join(', ')
+    setExerciseIds(idString);
+  }
 
     useEffect(() => {
-      if(exerciseData !== null){
+      if(programData && exerciseData !== null){
         setIsLoading(false)
+        writeExerciseIds()
       }
-    }, [exerciseData])
+    }, [programData, exerciseData])
 
     
   return (
     <View p="$2">
-      {isLoading ? <Spinner /> : <ExerciseDetailContent exerciseData={programDetail} />}
-      <ExerciseStartButton exerciseId={params.id}/>
+      {isLoading ? <Spinner size='large' alignSelf='center' justifyContent='center'/> : <View><ExerciseDetailContent exerciseData={programData} />
+      <ExerciseStartButton exerciseId={exerciseIds}/></View>
+      }
     </View>
   )
 }

@@ -49,16 +49,16 @@ import {
   }
 
 const ProgramCard = ({program}: Program) => {
-  const {id, name, description, img, program_duration} = program
-  console.log(id, name, description, program_duration)
+  const {id, name, description, img, duration} = program
+  console.log(id, name, description, duration)
 
-  //  const goToExercise = () => {
-  //   router.push(`/programs/${id}`)
-  //  }
+   const goToProgram = () => {
+    router.push(`/programs/${id}`)
+   }
 
   return (
     <View>
-        <Card elevate m="$0" width={300} height={380} scale={0.9} hoverStyle={{scale: 0.925}} pressStyle={{scale: 0.975}} >
+        <Card elevate m="$0" width={300} height={380} scale={0.9} hoverStyle={{scale: 0.925}} pressStyle={{scale: 0.975}} onPress={goToProgram} >
             <Card.Header m={0} p={0}>
                 {/* {exercises.map((exercise : Exercise) => (
                 <Image source={{width: 50, height: 50, uri: exercise.img}} style={{margin: 0, borderTopRightRadius: 10, borderTopLeftRadius: 10}} />
@@ -71,7 +71,7 @@ const ProgramCard = ({program}: Program) => {
                         {name}
                     </H2>
                     <Paragraph theme={'alt2_Card'}>
-                        Duration: {program_duration} seconds
+                        Duration: {duration} seconds
                     </Paragraph>
                     {/* <Button onPress={getDuration}>Get duration</Button> */}
                 </YStack>

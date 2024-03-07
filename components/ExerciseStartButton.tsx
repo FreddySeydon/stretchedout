@@ -7,7 +7,7 @@ const ExerciseStartButton = ({exerciseId}) => {
     const startExercise = () => {
         router.push({
             pathname: "/exercises/exercise",
-            params: {id: `${exerciseId}, 2`}
+            params: {id: `${exerciseId}`}
         })
     }
   return (
