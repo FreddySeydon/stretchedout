@@ -42,7 +42,7 @@ export default function TabOneScreen() {
       <YStack flex={1} alignItems="center" justifyContent="center">
         <H2>Stretched Out</H2>
         <H3>Exercises</H3>
-        <ScrollView horizontal>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <XStack gap="$3" p="$5">
           {isLoading ? <Spinner /> : 
           exerciseRows.map((exercise) => (

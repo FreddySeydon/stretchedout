@@ -3,14 +3,12 @@ import { Text, View, Spinner, Image, H2, H3, YStack, Paragraph, Button } from 't
 import { router } from 'expo-router';
 
 const ExerciseStartButton = ({exerciseId}) => {
-    console.log("Button id: ",exerciseId)
 
     const startExercise = () => {
         router.push({
             pathname: "/exercises/exercise",
-            params: {id: `${exerciseId}`}
+            params: {id: `${exerciseId}, 2`}
         })
-        console.log(`This will start exercise ${exerciseId} in the future`)
     }
   return (
     <View pr="$3" pl="$3">

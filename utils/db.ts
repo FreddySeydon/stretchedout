@@ -28,3 +28,11 @@ export async function getOneExercise(id: string | string[]) {
   const result = queryDatabase(`SELECT * FROM exercises WHERE id=${id}`);
   return result;
 }
+
+export async function getMultipleExercises(ids: Array<number>) {
+  const idList  = ids.join(', ')
+  // console.log("Ids to fetch:", idList)
+    const queryResult = await queryDatabase(`SELECT * FROM exercises WHERE id IN (${idList})`);
+    const result = queryResult.rows;
+    return result
+}
