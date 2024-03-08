@@ -63,9 +63,9 @@ export default function TabOneScreen() {
       <YStack flex={1} alignItems="center" justifyContent="center" pt='$6'>
         <H2>StretchOut</H2>
         <SetupNotification />
-        <H3>Programs</H3>
+        <H3 pt='$5'>Programs</H3>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <XStack gap="$3" p="$5" pl='$9' pr='$9' mb="$3">
+        <XStack gap="$3" p="$5" pl='$9' pr='$9' mb="$3" pt='$3'>
           {isLoading ? <Spinner /> : 
           programRows.map((program) => (
             <ProgramCard key={program.id} program={program}/>
