@@ -17,6 +17,16 @@ import {
 import ExerciseCard from '~/components/ExerciseCard';
 import ProgramCard from '~/components/ProgramCard';
 import { queryDatabase, openDatabaseFirst, getAllPrograms } from '~/utils/db';
+import SetupNotification from '~/components/SetupNotification';
+import * as Notifications from 'expo-notifications';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 
 export default function TabOneScreen() {
   const [isLoading, setIsLoading] = useState(true);
@@ -50,11 +60,12 @@ export default function TabOneScreen() {
   return (
 	  <Theme name="light">
       <ScrollView>
-      <YStack flex={1} alignItems="center" justifyContent="center">
-        <H2>Stretched Out</H2>
+      <YStack flex={1} alignItems="center" justifyContent="center" pt='$6'>
+        <H2>StretchOut</H2>
+        <SetupNotification />
         <H3>Programs</H3>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <XStack gap="$3" p="$5">
+        <XStack gap="$3" p="$5" pl='$9' pr='$9' mb="$3">
           {isLoading ? <Spinner /> : 
           programRows.map((program) => (
             <ProgramCard key={program.id} program={program}/>
@@ -65,7 +76,7 @@ export default function TabOneScreen() {
         <Separator marginVertical={15} />
         <H3>Exercises</H3>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <XStack gap="$3" p="$5">
+        <XStack gap="$3" p="$5" pl='$9' pr='$9'>
           {isLoading ? <Spinner /> : 
           exerciseRows.map((exercise) => (
             <ExerciseCard key={exercise.id} exercise={exercise}/>
@@ -74,7 +85,6 @@ export default function TabOneScreen() {
         </XStack>
         </ScrollView>
         <Separator />
-        {/* <Button onPress={loadPrograms}>Load Programs</Button> */}
       </YStack>
       </ScrollView>
     </Theme>

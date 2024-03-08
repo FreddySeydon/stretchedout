@@ -1,5 +1,5 @@
 import React from "react";
-    import { YStack, H2, Separator, Theme } from "tamagui";
+    import { YStack, H2, H3, Separator, Theme } from "tamagui";
 
 
 import EditScreenInfo from "../../components/edit-screen-info";
@@ -9,9 +9,10 @@ export default function TabTwoScreen() {
         return (
 			<Theme name="light">
 				<YStack flex={1} alignItems="center" justifyContent="center">
-					<H2>Tab Two</H2>
+					<H2>Stats</H2>
 					<Separator />
-					<EditScreenInfo path="app/(tabs)/index.tsx" />
+					<H3>Stats coming soon...</H3>
+
 				</YStack>
 			</Theme>
 		);    

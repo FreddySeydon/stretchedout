@@ -25,8 +25,8 @@ const CountdownTimer = ({setRemainingDuration, remainingDuration, initialDuratio
     }, [remainingDuration, onCountDownComplete, initialDuration])
 
   return (
-    <View>
-        <H1 alignSelf='center' color={'black'}>{remainingDuration}</H1>
+    <View padding='$4'>
+        <H1 size={'$13'} alignSelf='center' color={'black'}>{remainingDuration}</H1>
     </View>
   )
 }
