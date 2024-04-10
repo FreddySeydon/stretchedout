@@ -14,7 +14,7 @@ const ExerciseDetail = () => {
     useEffect(() => {
       const getExercise = async() => {
         setIsLoading(true)
-        const results: QueryResult<Exercise> = await getOneExercise(params.id);
+        const results: QueryResult<OneExercise[]> = await getOneExercise(params.id);
         setExerciseData(results!.rows[0]);
       }
       getExercise()
