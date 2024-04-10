@@ -4,15 +4,19 @@ import { useLocalSearchParams } from 'expo-router'
 import { getMultipleExercises } from '~/utils/db'
 import ExercisePlayer from '~/components/ExercisePlayer'
 import { router } from 'expo-router'
+import { type Exercise, OneExercise } from '~/types'
+
+
+
 
 const exercise = () => {
-    const exerciseIds = useLocalSearchParams()
+    const exerciseIds: {id: string} = useLocalSearchParams()
     const idArray = exerciseIds.id.split(", ");
     const [exerciseArray, setExerciseArray] = useState(idArray)
-    const [exercises, setExercises] = useState([])
-    const [singleExercise, setSingleExercise] = useState({})
+    const [exercises, setExercises] = useState<OneExercise[] | null>(null)
+    const [singleExercise, setSingleExercise] = useState<OneExercise | null>(null)
     const [isLoading, setIsLoading] = useState(true)
-    const [remainingDuration, setRemainingDuration] = useState(exercises.length > 0 ? exercises[0].duration : 0)
+    const [remainingDuration, setRemainingDuration] = useState(exercises!.length > 0 ? exercises![0].duration : 0)
     const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0)
     const [isLastExercise, setIsLastExercise] = useState(false)
 
@@ -23,7 +27,7 @@ const exercise = () => {
     const handleCountDownComplete = () => {
       setCurrentExerciseIndex((currentIndex) => {
         const nextIndex = currentIndex + 1;
-        if (nextIndex >= exercises.length) {
+        if (nextIndex >= exercises!.length) {
           router.back()
           return currentIndex
         }
@@ -38,9 +42,9 @@ const exercise = () => {
     // }, [currentExerciseIndex])
 
     useEffect(() => {
-      if (exercises.length > 0) {
-        setRemainingDuration(exercises[currentExerciseIndex].duration)
-        setSingleExercise(exercises[currentExerciseIndex]);
+      if (exercises!.length > 0) {
+        setRemainingDuration(exercises![currentExerciseIndex].duration)
+        setSingleExercise(exercises![currentExerciseIndex]);
       }
     }, [currentExerciseIndex, exercises])
 
@@ -48,6 +52,7 @@ const exercise = () => {
         const getExercises = async () => {
             setIsLoading(true)
             const results = await getMultipleExercises(exerciseArray);
+            console.log(exerciseArray)
             setExercises(results);
             setIsLoading(false);
         }

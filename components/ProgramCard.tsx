@@ -15,42 +15,15 @@ import {
     Text,
   } from 'tamagui';
   import { Link, router } from 'expo-router';
-  import { getOneProgramDuration } from '~/utils/db';
-
-  type Exercise = {
-    description: string;
-    duration: number;
-    id: number;
-    img: string;
-    name: string;
-  };
-  
-  type ExerciseData = {
-    insertId: number;
-    rows: Exercise[];
-    rowsAffected: number;
-  };
+  import { OneProgram, type Exercise } from '~/types';
+  // import { getOneProgramDuration } from '~/utils/db';
 
   type Program = {
-    id: number;
-    name: string;
-    description: string;
-    image: string;
-  }
-
-  interface ProgramWithExercises {
-    program_id: number;
-    program_name: string;
-    exercises: Exercise[];
-  }
-
-  type ExerciseCardProps =  {
-    exercise: Exercise;
+    program: OneProgram;
   }
 
 const ProgramCard = ({program}: Program) => {
   const {id, name, description, img, duration} = program
-  console.log(id, name, description, duration)
 
    const goToProgram = () => {
     router.push(`/programs/${id}`)

@@ -2,7 +2,7 @@ import * as Notifications from 'expo-notifications';
 import { ToastAndroid } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default async function scheduleDailyReminder(hour, minute) {
+export default async function scheduleDailyReminder(hour: number, minute: number): Promise<string> {
 
   // Cancel all previous scheduled notifications
   await Notifications.cancelAllScheduledNotificationsAsync();

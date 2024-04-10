@@ -4,17 +4,18 @@ import { Text, View, Spinner } from 'tamagui'
 import { getOneExercise } from '~/utils/db'
 import ExerciseDetailContent from '~/components/ExerciseDetailContent'
 import ExerciseStartButton from '~/components/ExerciseStartButton'
+import { Exercise, QueryResult, OneExercise } from '~/types'
 
 const ExerciseDetail = () => {
     const params = useLocalSearchParams();
-    const [exerciseData, setExerciseData] = useState(null);
+    const [exerciseData, setExerciseData] = useState<OneExercise | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
       const getExercise = async() => {
         setIsLoading(true)
-        const results = await getOneExercise(params.id);
-        setExerciseData(results.rows[0]);
+        const results: QueryResult<Exercise> = await getOneExercise(params.id);
+        setExerciseData(results!.rows[0]);
       }
       getExercise()
     }, [])
@@ -29,7 +30,7 @@ const ExerciseDetail = () => {
     
   return (
     <View p="$2">
-      {isLoading ? <Spinner /> : <ExerciseDetailContent exerciseData={exerciseData} />}
+      {isLoading ? <Spinner /> : <ExerciseDetailContent exerciseData={exerciseData!} />}
       <ExerciseStartButton exerciseId={params.id}/>
     </View>
   )

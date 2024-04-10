@@ -1,25 +1,14 @@
 import { blue } from '@tamagui/themes';
 import React from 'react';
 import { Text, View, Spinner, Image, H2, H3, YStack, Paragraph } from 'tamagui';
-
-type Exercise = {
-  description: string;
-  duration: number;
-  id: number;
-  img: string;
-  name: string;
-};
+import { OneExercise, Exercise, Programs, OneProgram } from '~/types';
 
 type ExerciseData = {
-  insertId: number;
-  rows: Exercise[];
-  exerciseData: Exercise;
-  rowsAffected: number;
-};
-
-type ExerciseCardProps = {
-  exercise: Exercise;
-};
+  insertId?: number;
+  rows?: OneExercise[];
+  exerciseData: OneExercise | OneProgram;
+  rowsAffected?: number;
+}
 
 const ExerciseDetailContent = ({ exerciseData }: ExerciseData) => {
   const { description, duration, id, img, name } = exerciseData;

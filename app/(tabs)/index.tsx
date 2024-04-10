@@ -19,6 +19,7 @@ import ProgramCard from '~/components/ProgramCard';
 import { queryDatabase, openDatabaseFirst, getAllPrograms } from '~/utils/db';
 import SetupNotification from '~/components/SetupNotification';
 import * as Notifications from 'expo-notifications';
+import { OneExercise, OneProgram, type QueryResult } from '~/types';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -30,8 +31,8 @@ Notifications.setNotificationHandler({
 
 export default function TabOneScreen() {
   const [isLoading, setIsLoading] = useState(true);
-  const [exerciseRows, setExerciseRows] = useState([])
-  const [programRows, setProgramRows] = useState([])
+  const [exerciseRows, setExerciseRows] = useState<OneExercise[]>([])
+  const [programRows, setProgramRows] = useState<OneProgram[]>([])
 
   useEffect(() => {
     const firstOpenDatabase = async () => {
@@ -44,8 +45,8 @@ export default function TabOneScreen() {
 
   const loadExercises = async () => {
     setIsLoading(true)
-    const resultRows = await queryDatabase('SELECT * FROM exercises;');
-    setExerciseRows(resultRows.rows);
+    const resultRows = await queryDatabase('SELECT * FROM exercises;') as QueryResult<OneExercise[]>;
+    setExerciseRows(resultRows!.rows);
     // console.log(resultRows.rows);
     setIsLoading(false)
   };

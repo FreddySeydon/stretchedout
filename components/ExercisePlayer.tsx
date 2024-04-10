@@ -4,9 +4,23 @@ import { useLocalSearchParams } from 'expo-router'
 import { getMultipleExercises } from '~/utils/db'
 import CountdownTimer from './CountdownTimer'
 import { Touchable, TouchableOpacity } from 'react-native'
+import { type Exercise, OneExercise } from '~/types'
 
-const ExercisePlayer = ({singleExercise, remainingDuration, setRemainingDuration, onCountDownComplete, previousExercise, currentExerciseIndex, isLastExercise}) => {
-    const {name, id, duration, img} = singleExercise
+type ExercisePlayerProps = {
+  singleExercise: OneExercise | null,
+  remainingDuration: number,
+  setRemainingDuration: React.Dispatch<number>,
+  onCountDownComplete: () => void,
+  previousExercise: () => void, 
+  currentExerciseIndex: number, 
+  isLastExercise: boolean
+
+}
+
+const ExercisePlayer = ({singleExercise, remainingDuration, setRemainingDuration, onCountDownComplete, previousExercise, currentExerciseIndex, isLastExercise}: ExercisePlayerProps) => {
+  
+   const {name, id, duration, img} = singleExercise!
+    
 
     // console.log("Is Last: ",isLastExercise)
 

@@ -9,7 +9,7 @@ import * as Notifications from 'expo-notifications'
 
 const SetupNotification = () => {
     const [date, setDate] = useState(new Date());
-    const [mode, setMode] = useState('time');
+    const [mode, setMode] = useState<'time' | 'date'>('time');
     const [show, setShow] = useState(false);
     const [isReminderSet, setIsReminderSet] = useState(false);
     const [reminderTime, setReminderTime] = useState('')
@@ -33,7 +33,7 @@ const SetupNotification = () => {
         setReminderTime('');
     }
 
-    const onChange = async (event, selectedDate) => {
+    const onChange: (event: any, selectedDate: Date | undefined) => Promise<void> = async (event, selectedDate) => {
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
         setDate(currentDate);
@@ -44,7 +44,7 @@ const SetupNotification = () => {
         }
     };
 
-    const showMode = (currentMode) => {
+    const showMode = (currentMode: 'time' | 'date') => {
         setShow(true);
         setMode(currentMode);
     };

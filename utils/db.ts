@@ -1,6 +1,8 @@
 import * as FileSystem from 'expo-file-system';
 import * as SQLite from 'expo-sqlite';
 import { Asset } from 'expo-asset';
+import { type QueryResult, Exercise, Programs, OneProgramInfo } from '~/types';
+
 
 export async function openDatabaseFirst(): Promise<SQLite.SQLiteDatabase> {
   const pathToDatabaseFile = '../assets/collection.db';
@@ -29,15 +31,17 @@ export async function getOneExercise(id: string | string[]) {
   return result;
 }
 
-export async function getMultipleExercises(ids: Array<number>) {
+export async function getMultipleExercises(ids: Array<string>) {
   const idList = ids.join(', ');
-  const queryResult = await queryDatabase(`SELECT * FROM exercises WHERE id IN (${idList})`);
-  const result = queryResult.rows;
+  const queryResult: QueryResult<Exercise> = await queryDatabase(`SELECT * FROM exercises WHERE id IN (${idList})`);
+  const result = queryResult!.rows;
   return result;
 }
 
+
+
 export async function getAllPrograms() {
-  const queryResult = await queryDatabase(`SELECT 
+  const queryResult: QueryResult<Programs> = await queryDatabase(`SELECT 
   programs.id, 
   programs.name, 
   programs.description,
@@ -51,27 +55,27 @@ programs.img,
 FROM 
   programs;
 `);
-const result = queryResult.rows;
+const result = queryResult!.rows;
 return result
 }
 
 export async function getOneProgramInfo(id: string | string[]) {
-  const queryResult = await queryDatabase(`SELECT * FROM programs WHERE id = ${id};`);
-const result = queryResult.rows;
+  const queryResult: QueryResult<OneProgramInfo> = await queryDatabase(`SELECT * FROM programs WHERE id = ${id};`);
+const result = queryResult!.rows;
 return result
 }
 
 export async function getOneProgramExercises(id: string | string[]) {
-  const queryResult = await queryDatabase(`SELECT exercises.* FROM exercises
+  const queryResult: QueryResult<Exercise> = await queryDatabase(`SELECT exercises.* FROM exercises
   INNER JOIN programs_exercises ON exercises.id = programs_exercises.exercise_id
   WHERE programs_exercises.program_id = ${id};
   `);
-  const result = queryResult.rows;
+  const result = queryResult!.rows;
   return result;
 }
 
 export async function getOneProgram(id: string | string[]) {
-  const queryResult = await queryDatabase(`SELECT 
+  const queryResult: QueryResult<Programs> = await queryDatabase(`SELECT 
   programs.id, 
   programs.name, 
   programs.description,
@@ -86,6 +90,6 @@ FROM
   programs
 WHERE 
   programs.id = ${id};`);
-  const result = queryResult.rows;
+  const result = queryResult!.rows;
   return result;
 }

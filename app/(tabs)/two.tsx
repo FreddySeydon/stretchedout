@@ -1,9 +1,6 @@
 import React from "react";
     import { YStack, H2, H3, Separator, Theme } from "tamagui";
 
-
-import EditScreenInfo from "../../components/edit-screen-info";
-
 export default function TabTwoScreen() {
     
         return (

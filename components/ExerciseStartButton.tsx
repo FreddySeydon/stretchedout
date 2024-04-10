@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, View, Spinner, Image, H2, H3, YStack, Paragraph, Button } from 'tamagui';
 import { router } from 'expo-router';
 
-const ExerciseStartButton = ({exerciseId}) => {
+const ExerciseStartButton = ({exerciseId}: {exerciseId: number | string[] | string}) => {
 
     const startExercise = () => {
         router.push({

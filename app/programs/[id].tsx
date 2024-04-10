@@ -4,17 +4,18 @@ import { Text, View, Spinner, Button } from 'tamagui'
 import { getOneExercise, getOneProgram, getOneProgramExercises, getOneProgramInfo } from '~/utils/db'
 import ExerciseDetailContent from '~/components/ExerciseDetailContent'
 import ExerciseStartButton from '~/components/ExerciseStartButton'
+import { type Exercise, Programs, OneProgramInfo, OneProgram } from '~/types'
 
 const ProgramDetail = () => {
     const params = useLocalSearchParams();
-    const [exerciseData, setExerciseData] = useState(null);
-    const [programData, setProgramData] = useState(null);
+    const [exerciseData, setExerciseData] = useState<Exercise | null>(null);
+    const [programData, setProgramData] = useState<OneProgram | null>(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [exerciseIds, setExerciseIds] = useState(null);
+    const [exerciseIds, setExerciseIds] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchAllData = async () => {
-      if (params.id) { // Ensure params.id is available
+      if (params.id) {
         setIsLoading(true);
         const exercisesResults = await getOneProgramExercises(params.id);
         setExerciseData(exercisesResults);
@@ -26,11 +27,11 @@ const ProgramDetail = () => {
     };
   
     fetchAllData();
-  }, [params.id]); // React to changes in params.id
+  }, [params.id]);
   
 
   const writeExerciseIds = () => {
-    const Ids = exerciseData.map((exercise) => {
+    const Ids = exerciseData!.map((exercise) => {
       return exercise.id
     })
     const idString = Ids.join(', ')
@@ -47,8 +48,8 @@ const ProgramDetail = () => {
     
   return (
     <View p="$2">
-      {isLoading ? <Spinner size='large' alignSelf='center' justifyContent='center'/> : <View><ExerciseDetailContent exerciseData={programData} />
-      <ExerciseStartButton exerciseId={exerciseIds}/></View>
+      {isLoading ? <Spinner size='large' alignSelf='center' justifyContent='center'/> : <View><ExerciseDetailContent exerciseData={programData!} />
+      <ExerciseStartButton exerciseId={exerciseIds!}/></View>
       }
     </View>
   )
