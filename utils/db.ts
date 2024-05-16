@@ -13,16 +13,17 @@ export async function openDatabaseFirst(): Promise<SQLite.SQLiteDatabase> {
     Asset.fromModule(require(pathToDatabaseFile)).uri,
     FileSystem.documentDirectory + 'SQLite/collection.db'
   );
-  return SQLite.openDatabase('collection.db');
+  return SQLite.openDatabaseSync('collection.db');
 }
 
 export async function queryDatabase(query: string) {
-  const db = SQLite.openDatabase('collection.db');
+  const db = SQLite.openDatabaseSync('collection.db');
   let result = null;
   const readOnly = true;
-  await db.transactionAsync(async (tx) => {
-    result = await tx.executeSqlAsync(query, []);
-  }, readOnly);
+  //@ts-ignore
+  await db.withTransactionAsync(async (tx) => {
+    result = await tx?.executeSqlAsync(query, []);
+  });
   return result;
 }
 
@@ -34,7 +35,7 @@ export async function getOneExercise(id: string | string[]) {
 export async function getMultipleExercises(ids: Array<string>) {
   const idList = ids.join(', ');
   const queryResult: QueryResult<Exercise> = await queryDatabase(`SELECT * FROM exercises WHERE id IN (${idList})`);
-  const result = queryResult!.rows;
+  const result = queryResult?.rows;
   return result;
 }
 
