@@ -20,9 +20,8 @@ export async function queryDatabase(query: string) {
   const db = SQLite.openDatabaseSync('collection.db');
   let result = null;
   const readOnly = true;
-  //@ts-ignore
-  await db.withTransactionAsync(async (tx) => {
-    result = await tx?.executeSqlAsync(query, []);
+  await db.withTransactionAsync(async () => {
+    result = await db.execAsync(query);
   });
   return result;
 }
@@ -35,7 +34,7 @@ export async function getOneExercise(id: string | string[]) {
 export async function getMultipleExercises(ids: Array<string>) {
   const idList = ids.join(', ');
   const queryResult: QueryResult<Exercise> = await queryDatabase(`SELECT * FROM exercises WHERE id IN (${idList})`);
-  const result = queryResult?.rows;
+  const result = queryResult!.rows;
   return result;
 }
 

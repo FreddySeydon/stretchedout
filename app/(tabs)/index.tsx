@@ -46,8 +46,8 @@ export default function TabOneScreen() {
   const loadExercises = async () => {
     setIsLoading(true)
     const resultRows = await queryDatabase('SELECT * FROM exercises;') as QueryResult<OneExercise[]>;
+    console.log("RESILT: ",resultRows);
     setExerciseRows(resultRows!.rows);
-    // console.log(resultRows.rows);
     setIsLoading(false)
   };
 
