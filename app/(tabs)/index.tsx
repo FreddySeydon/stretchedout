@@ -19,7 +19,7 @@ import ProgramCard from '~/components/ProgramCard';
 import { queryDatabase, openDatabaseFirst, getAllPrograms } from '~/utils/db';
 import SetupNotification from '~/components/SetupNotification';
 import * as Notifications from 'expo-notifications';
-import { OneExercise, OneProgram, type QueryResult } from '~/types';
+import { Exercise, ProgramInfo, type QueryResult } from '~/types';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -31,8 +31,8 @@ Notifications.setNotificationHandler({
 
 export default function TabOneScreen() {
   const [isLoading, setIsLoading] = useState(true);
-  const [exerciseRows, setExerciseRows] = useState<OneExercise[]>([])
-  const [programRows, setProgramRows] = useState<OneProgram[]>([])
+  const [exerciseRows, setExerciseRows] = useState<Exercise[]>([])
+  const [programRows, setProgramRows] = useState<ProgramInfo[]>([])
 
   useEffect(() => {
     const firstOpenDatabase = async () => {
@@ -45,9 +45,8 @@ export default function TabOneScreen() {
 
   const loadExercises = async () => {
     setIsLoading(true)
-    const resultRows = await queryDatabase('SELECT * FROM exercises;') as QueryResult<OneExercise[]>;
-    setExerciseRows(resultRows!.rows);
-    // console.log(resultRows.rows);
+    const result = await queryDatabase('SELECT * FROM exercises;') as Exercise[];
+    setExerciseRows(result);
     setIsLoading(false)
   };
 
@@ -66,7 +65,7 @@ export default function TabOneScreen() {
         <SetupNotification />
         <H3 pt='$5'>Programs</H3>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <XStack gap="$3" p="$5" pl='$9' pr='$9' mb="$3" pt='$3'>
+        <XStack gap="$3" p="$5" mb="$3" pt='$3' style={{paddingLeft:"5vw", paddingRight:"5vw"}}>
           {isLoading ? <Spinner /> : 
           programRows.map((program) => (
             <ProgramCard key={program.id} program={program}/>
@@ -77,7 +76,7 @@ export default function TabOneScreen() {
         <Separator marginVertical={15} />
         <H3>Exercises</H3>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <XStack gap="$3" p="$5" pl='$9' pr='$9'>
+        <XStack gap="$3" p="$5" style={{paddingLeft:"5vw", paddingRight:"5vw"}}>
           {isLoading ? <Spinner /> : 
           exerciseRows.map((exercise) => (
             <ExerciseCard key={exercise.id} exercise={exercise}/>
