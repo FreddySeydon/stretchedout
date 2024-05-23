@@ -15,11 +15,11 @@ import {
     Text,
   } from 'tamagui';
   import { Link, router } from 'expo-router';
-  import { OneProgram, type Exercise } from '~/types';
+  import { type ProgramInfo, type Exercise } from '~/types';
   // import { getOneProgramDuration } from '~/utils/db';
 
   type Program = {
-    program: OneProgram;
+    program: ProgramInfo;
   }
 
 const ProgramCard = ({program}: Program) => {
@@ -31,7 +31,7 @@ const ProgramCard = ({program}: Program) => {
 
   return (
     <View>
-        <Card elevate m="$0" width={300} height={380} scale={0.9} hoverStyle={{scale: 0.925}} pressStyle={{scale: 0.975}} onPress={goToProgram} >
+        <Card elevate m="$0" width={300} height={380} pressStyle={{scale: 0.975}} onPress={goToProgram} >
             <Card.Header m={0} p={0}>
                 {/* {exercises.map((exercise : Exercise) => (
                 <Image source={{width: 50, height: 50, uri: exercise.img}} style={{margin: 0, borderTopRightRadius: 10, borderTopLeftRadius: 10}} />

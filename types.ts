@@ -1,13 +1,13 @@
-export type Exercise = [{
-    id: number,
-    name: string,
-    description: string,
-    duration: number,
-    img: string,
-    sidechange?: 0 | 1
-  }]
+// export type Exercise = [{
+//     id: number,
+//     name: string,
+//     description: string,
+//     duration: number,
+//     img: string,
+//     sidechange?: 0 | 1
+//   }]
 
-export type OneExercise = {
+export type Exercise = {
     id: number,
     name: string,
     description: string,
@@ -21,23 +21,23 @@ export type QueryResult<T> = {
   } | null;
 
 
-export type Programs = [{
-    id: number,
-    name: string,
-    description: string,
-    duration: number,
-    img: string
-  }]
+// export type Programs = [{
+//     id: number,
+//     name: string,
+//     description: string,
+//     duration: number,
+//     img: string
+//   }]
 
-export type OneProgramInfo = [{
-    id: number,
-    name: string,
-    description: string,
-    duration?: number,
-    img: string
-  }]
+// export type OneProgramInfo = [{
+//     id: number,
+//     name: string,
+//     description: string,
+//     duration?: number,
+//     img: string
+//   }]
 
-export type OneProgram = {
+export type ProgramInfo = {
     id: number,
     name: string,
     description: string,
