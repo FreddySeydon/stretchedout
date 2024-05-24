@@ -26,18 +26,25 @@ const exercise = () => {
       setCurrentExerciseIndex(currentExerciseIndex-1)
     }
 
+    const handleExerciseEnd = () => {
+      router.back()
+    }
+
     const checkIsLastExercise = () => {
       const nextIndex = currentExerciseIndex + 1;
       if(nextIndex >= exercises!.length){
         setIsLastExercise(true);
+        return
       }
+      setIsLastExercise(false);
+      return
     }
 
     const handleCountDownComplete = () => {
       setCurrentExerciseIndex((currentIndex) => {
         const nextIndex = currentIndex + 1;
         if (nextIndex >= exercises!.length) {
-          router.back()
+          handleExerciseEnd()
           return currentIndex
         }
         return nextIndex
@@ -74,7 +81,7 @@ const exercise = () => {
   return (
     <View>
         <YStack>
-          {isLoading ? <Spinner /> : <ExercisePlayer onCountDownComplete={handleCountDownComplete} isLastExercise={isLastExercise} previousExercise={previousExercise} currentExerciseIndex={currentExerciseIndex} singleExercise={singleExercise} remainingDuration={remainingDuration} setRemainingDuration={setRemainingDuration} /> }
+          {isLoading ? <Spinner /> : <ExercisePlayer onCountDownComplete={handleCountDownComplete} numberOfExercises={exercises?.length} isLastExercise={isLastExercise} previousExercise={previousExercise} currentExerciseIndex={currentExerciseIndex} singleExercise={singleExercise} remainingDuration={remainingDuration} setRemainingDuration={setRemainingDuration} /> }
         </YStack>
     </View>
   )

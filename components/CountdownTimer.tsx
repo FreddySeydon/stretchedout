@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { View, H1 } from 'tamagui'
 
-const CountdownTimer = ({setRemainingDuration, remainingDuration, initialDuration, onCountDownComplete}) => {
+const CountdownTimer = ({setRemainingDuration, remainingDuration, initialDuration, onCountDownComplete, isPaused, setIsPaused}: {setRemainingDuration: React.Dispatch<React.SetStateAction<number>>, remainingDuration: number, initialDuration: number, onCountDownComplete: () => void, isPaused: boolean, setIsPaused: React.Dispatch<React.SetStateAction<boolean>>}) => {
     const [remainingTime, setRemainingTime] = useState(initialDuration);
 
     useEffect(() => {
@@ -10,7 +10,9 @@ const CountdownTimer = ({setRemainingDuration, remainingDuration, initialDuratio
             return
         }
 
-        // setRemainingDuration(initialDuration);
+        if(isPaused) {
+            return;
+        }
 
         const intervalId = setInterval(() => {
             setRemainingDuration((prevTime) => {
@@ -22,7 +24,7 @@ const CountdownTimer = ({setRemainingDuration, remainingDuration, initialDuratio
             })
         }, 1000)
         return () => clearInterval(intervalId);
-    }, [remainingDuration, onCountDownComplete, initialDuration])
+    }, [remainingDuration, onCountDownComplete, initialDuration, isPaused])
 
   return (
     <View padding='$4'>

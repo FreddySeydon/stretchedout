@@ -4,43 +4,47 @@ import { useLocalSearchParams } from 'expo-router'
 import { getMultipleExercises } from '~/utils/db'
 import CountdownTimer from './CountdownTimer'
 import { Touchable, TouchableOpacity } from 'react-native'
-import { type Exercise, OneExercise } from '~/types'
+import { type Exercise } from '~/types'
+import { AntDesign } from '@expo/vector-icons'
 
 type ExercisePlayerProps = {
-  singleExercise: OneExercise | null,
+  singleExercise: Exercise | null,
   remainingDuration: number,
-  setRemainingDuration: React.Dispatch<number>,
+  setRemainingDuration: React.Dispatch<React.SetStateAction<number>>,
   onCountDownComplete: () => void,
   previousExercise: () => void, 
   currentExerciseIndex: number, 
-  isLastExercise: boolean
+  isLastExercise: boolean,
+  numberOfExercises?: number | undefined,
 
 }
 
-const ExercisePlayer = ({singleExercise, remainingDuration, setRemainingDuration, onCountDownComplete, previousExercise, currentExerciseIndex, isLastExercise}: ExercisePlayerProps) => {
+const ExercisePlayer = ({singleExercise, remainingDuration, setRemainingDuration, onCountDownComplete, previousExercise, currentExerciseIndex, isLastExercise, numberOfExercises}: ExercisePlayerProps) => {
   
-   const {name, id, duration, img} = singleExercise!
-    
+   const {name = "", id = 0, duration = 0, img = ""} = singleExercise ? singleExercise : {}
+   const [isPaused, setIsPaused] = useState(false);
 
-    // console.log("Is Last: ",isLastExercise)
+   const togglePause = () => {
+    setIsPaused(!isPaused)
+}
 
   return (
     <View>
-              <YStack p="$3">
-        <Image source={{ uri: img }} style={{ width: 'fit', height: 400, borderRadius: 10}} />
-        <YStack backgroundColor={'rgba(196, 176, 113, 0.55)'} borderBottomLeftRadius={10} borderBottomRightRadius={10} p="$3">
+              <YStack p="$2">
+        <Image source={{ uri: img }} style={{ width: 'fit', height: 350, borderRadius: 10}} />
+        <YStack backgroundColor={'rgba(196, 176, 113, 0.55)'} borderBottomLeftRadius={10} borderBottomRightRadius={10} p="$3" justifyContent='center' alignItems='center'>
           <H2 color={'black'} >{name}</H2>
+          {numberOfExercises ? <Text>{currentExerciseIndex + 1}/{numberOfExercises}</Text> : null}
         </YStack>
-        <YStack>
-        <CountdownTimer onCountDownComplete={onCountDownComplete} initialDuration={duration} remainingDuration={remainingDuration} setRemainingDuration={setRemainingDuration} />
-        <XStack space width={'fit'} alignSelf='center'>
-        {currentExerciseIndex === 0 ? <VisuallyHidden>
-            <Button></Button>
-        </VisuallyHidden> : <Button onPress={previousExercise} backgroundColor={'rgba(196, 176, 113, 0.55)'} width={'33%'}><Text>Previous</Text></Button>}
-        <VisuallyHidden>
-        <Button onPress={onCountDownComplete} backgroundColor={'rgba(196, 176, 113, 0.55)'} width={'33%'}>Play</Button>
-        </VisuallyHidden>
-        <Button onPress={onCountDownComplete} backgroundColor={'rgba(196, 176, 113, 0.55)'} width={'33%'}>{isLastExercise ? 'End' : 'Next'}</Button>
+        <YStack >
+        <CountdownTimer onCountDownComplete={onCountDownComplete} initialDuration={duration} remainingDuration={remainingDuration} setRemainingDuration={setRemainingDuration} isPaused={isPaused} setIsPaused={setIsPaused} />
+        <XStack justifyContent='center' alignItems='baseline'>
+        {currentExerciseIndex === 0 ?
+            <Button disabled onPress={previousExercise} backgroundColor={'rgba(196, 176, 113, 0.0)'} color={'rgb(180, 180, 180)'} height={'fit-content'}><AntDesign name="leftcircle" size={50} color="rgba(196, 176, 113, 0.2)" /></Button>
+        : <Button onPress={previousExercise} backgroundColor={'rgba(196, 176, 113, 0.0)'} height={'fit-content'}><AntDesign name="leftcircle" size={50} color="rgba(196, 176, 113, 0.55)" /></Button>}
+        
+        <Button onPress={togglePause} backgroundColor={'rgba(196, 176, 113, 0.0)'} height={'fit-content'} >{isPaused ? <AntDesign name="play" size={80} color="rgba(196, 176, 113, 0.55)" /> : <AntDesign name="pausecircle" size={80} color="rgba(196, 176, 113, 0.55)" />}</Button>
+        <Button onPress={onCountDownComplete} backgroundColor={'rgba(196, 176, 113, 0.0)'} height={'fit-content'} width={'fit-content'}>{isLastExercise ? <AntDesign name="flag" size={50} color="rgba(196, 176, 113, 0.55)" /> : <AntDesign name="rightcircle" size={50} color="rgba(196, 176, 113, 0.55)" />}</Button>
         </XStack>
         </YStack>
       </YStack>
