@@ -3,7 +3,7 @@ import { View, YStack, XStack, ProgressIndicator, Image, Dialog, H2, Text, Butto
 import { useLocalSearchParams } from 'expo-router'
 import { getMultipleExercises } from '~/utils/db'
 import CountdownTimer from './CountdownTimer'
-import { Touchable, TouchableOpacity } from 'react-native'
+import { Touchable, TouchableOpacity, Pressable } from 'react-native'
 import { type Exercise } from '~/types'
 import { AntDesign } from '@expo/vector-icons'
 
@@ -43,7 +43,7 @@ const ExercisePlayer = ({singleExercise, remainingDuration, setRemainingDuration
             <Button disabled borderRadius={100} onPress={previousExercise} backgroundColor={'rgba(196, 176, 113, 0.0)'} color={'rgb(180, 180, 180)'} height={'fit-content'} pressStyle={{backgroundColor: 'transparent', borderColor: 'transparent', scale: 0.5}}><AntDesign name="leftcircle" size={50} color="rgba(196, 176, 113, 0.2)" /></Button>
         : <Button onPress={previousExercise} backgroundColor={'rgba(196, 176, 113, 0.0)'} height={'fit-content'} pressStyle={{backgroundColor: 'transparent', borderColor: 'transparent', scale: 0.7}}><AntDesign name="leftcircle" size={50} color="rgba(196, 176, 113, 0.55)" /></Button>}
         
-        <Button onPress={togglePause} backgroundColor={'rgba(196, 176, 113, 0.0)'} height={'fit-content'} pressStyle={{backgroundColor: 'transparent', borderColor: 'transparent', scale: 0.9}} >{isPaused ? <AntDesign name="play" size={80} color="rgba(196, 176, 113, 0.55)" /> : <AntDesign name="pausecircle" pressStyle={{backgroundColor: '$colorTransparent'}} size={80} color="rgba(196, 176, 113, 0.55)" />}</Button>
+        <Button onPress={togglePause} backgroundColor={'rgba(196, 176, 113, 0.0)'} height={'fit-content'} pressStyle={{backgroundColor: 'transparent', borderColor: 'transparent', scale: 0.9}} >{isPaused ? <Pressable onPress={togglePause}>{({ pressed }) => (<AntDesign name="play" size={80} color="rgba(196, 176, 113, 0.55)" style={{ opacity: pressed ? 0.5 : 1 }} />)}</Pressable> : <AntDesign name="pausecircle" pressStyle={{backgroundColor: '$colorTransparent'}} size={80} color="rgba(196, 176, 113, 0.55)" />}</Button>
         <Button onPress={onCountDownComplete} backgroundColor={'rgba(196, 176, 113, 0.0)'} height={'fit-content'} width={'fit-content'} borderRadius={200} pressStyle={{backgroundColor: 'transparent', borderColor: 'transparent', scale: 0.7}} hoverStyle={{backgroundColor: '$backgroundTransparent'}}>{isLastExercise ? <AntDesign name="flag" size={50} color="rgba(196, 176, 113, 0.55)" /> : <AntDesign name="rightcircle" size={50} color="rgba(196, 176, 113, 0.55)" />}</Button>
         </XStack>
         </YStack>

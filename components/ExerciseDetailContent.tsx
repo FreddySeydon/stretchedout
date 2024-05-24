@@ -45,6 +45,7 @@ const ExerciseDetailContent = ({ exerciseData, programData }: {exerciseData: Exe
           <H2 color={textColor} >{name}</H2>
           <H3 color={textColor} pb="$2">{description}</H3>
           <Paragraph color={"rgba(130, 128, 123, 1)"} style={{fontSize: 15}}>Duration: {duration ? formatTime(duration) : 0}</Paragraph>
+          {programData && Array.isArray(exerciseData) ? <Paragraph color={"rgba(130, 128, 123, 1)"} style={{fontSize: 15}}>Exercises: {exerciseData.length}</Paragraph> : null}
         </YStack>
       </YStack>
     </View>

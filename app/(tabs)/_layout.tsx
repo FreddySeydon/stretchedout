@@ -25,21 +25,21 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => <TabBarIcon name='home' color={color} />,
-          headerShown: false,
-          // headerRight: () => (
-          //   <Link href='/modal' asChild>
-          //     <Pressable>
-          //       {({ pressed }) => (
-          //         <FontAwesome
-          //           name='info-circle'
-          //           size={25}
-          //           color='gray'
-          //           style={[styles.headerRight, { opacity: pressed ? 0.5 : 1 }]}
-          //         />
-          //       )}
-          //     </Pressable>
-          //   </Link>
-          // ),
+          headerShown: true,
+          headerRight: () => (
+            <Link href='/modal' asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome
+                    name='info-circle'
+                    size={25}
+                    color='gray'
+                    style={[styles.headerRight, { opacity: pressed ? 0.5 : 1 }]}
+                  />
+                )}
+              </Pressable>
+            </Link>
+          ),
         }}
       />
       <Tabs.Screen
