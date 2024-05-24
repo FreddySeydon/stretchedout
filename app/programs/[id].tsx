@@ -20,7 +20,9 @@ const ProgramDetail = () => {
       if (params.id) {
         setIsLoading(true);
         const exercisesResults = await getOneProgramExercises(params.id);
-        // logWithoutImage(exercisesResults)
+        // logWithoutImage("Exercises ID page: ",exercisesResults)
+        
+        logWithoutImage("Program ID page: ", programData)
         setExerciseData(exercisesResults);
   
         const programResults = await getOneProgram(params.id);
@@ -53,7 +55,7 @@ const ProgramDetail = () => {
     
   return (
     <View p="$2">
-      {isLoading ? <Spinner size='large' alignSelf='center' justifyContent='center'/> : <View><ExerciseDetailContent exerciseData={programData!} />
+      {isLoading ? <Spinner size='large' alignSelf='center' justifyContent='center'/> : <View><ExerciseDetailContent exerciseData={exerciseData!} programData={programData ? programData : undefined} />
       <ExerciseStartButton exerciseId={exerciseIds!} programName={programData?.name} programId={programData?.id}/></View>
       }
     </View>

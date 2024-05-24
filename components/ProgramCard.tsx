@@ -16,7 +16,7 @@ import {
   } from 'tamagui';
   import { Link, router } from 'expo-router';
   import { type ProgramInfo, type Exercise } from '~/types';
-  // import { getOneProgramDuration } from '~/utils/db';
+  import { formatTime } from '~/utils/utils';
 
   type Program = {
     program: ProgramInfo;
@@ -33,9 +33,6 @@ const ProgramCard = ({program}: Program) => {
     <View>
         <Card elevate m="$0" width={300} height={380} pressStyle={{scale: 0.975}} onPress={goToProgram} >
             <Card.Header m={0} p={0}>
-                {/* {exercises.map((exercise : Exercise) => (
-                <Image source={{width: 50, height: 50, uri: exercise.img}} style={{margin: 0, borderTopRightRadius: 10, borderTopLeftRadius: 10}} />
-                ))} */}
                 <Image source={{width: 300, height: 300, uri: img}} style={{margin: 0, borderTopRightRadius: 10, borderTopLeftRadius: 10}} />
                 </Card.Header>
             <Card.Footer>
@@ -44,9 +41,8 @@ const ProgramCard = ({program}: Program) => {
                         {name}
                     </H2>
                     <Paragraph theme={'alt2_Card'}>
-                        Duration: {duration} seconds
+                        Duration: {duration ? formatTime(duration) : 0}
                     </Paragraph>
-                    {/* <Button onPress={getDuration}>Get duration</Button> */}
                 </YStack>
             </Card.Footer>
         </Card>

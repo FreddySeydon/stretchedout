@@ -63,7 +63,7 @@ export default function TabOneScreen() {
 	  <Theme name="light">
       <ScrollView paddingTop="$5">
       <YStack flex={1} alignItems="center" justifyContent="center" pt='$6'>
-        <Image src={require('../../assets/stretchout_headline.png')} padding="$5" />
+        <Image src={require('../../assets/stretchout_headline.png')} />
         {/* <H2>StretchOut</H2> */}
         <SetupNotification />
         <H3 pt='$5'>Programs</H3>
@@ -78,7 +78,7 @@ export default function TabOneScreen() {
         </ScrollView>
         <Separator marginVertical={15} />
         <H3>Exercises</H3>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} paddingBottom="$5">
         <XStack gap="$3" p="$5" style={{paddingLeft:"5vw", paddingRight:"5vw"}}>
           {isLoading ? <Spinner /> : 
           exerciseRows.map((exercise) => (

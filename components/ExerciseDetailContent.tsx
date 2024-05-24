@@ -1,17 +1,41 @@
 import { blue } from '@tamagui/themes';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Text, View, Spinner, Image, H2, H3, YStack, Paragraph } from 'tamagui';
-import { OneExercise, Exercise, Programs, OneProgram } from '~/types';
+import { Exercise, ProgramInfo } from '~/types';
+import { formatTime } from '~/utils/utils';
 
-type ExerciseData = {
-  insertId?: number;
-  rows?: OneExercise[];
-  exerciseData: OneExercise | OneProgram;
-  rowsAffected?: number;
-}
+const ExerciseDetailContent = ({ exerciseData, programData }: {exerciseData: Exercise[] | Exercise, programData?: ProgramInfo}) => {
+  const [exercises, setExercises] = useState<Exercise[] | Exercise | null>(exerciseData)
+  const [program, setProgram] = useState<ProgramInfo | null>(programData ? programData : null)
+  const [preview, setPreview] = useState<ProgramInfo | null>(null)
 
-const ExerciseDetailContent = ({ exerciseData }: ExerciseData) => {
-  const { description, duration, id, img, name } = exerciseData;
+  useEffect(() => {
+    setExercises(exerciseData);
+    if(programData){
+      setProgram(programData);
+      setPreview({
+        id: programData.id,
+        name: programData.name,
+        description: programData.description,
+        duration: programData.duration ? programData.duration : 0,
+        img: programData.img
+      })
+      return
+    }
+    if(!Array.isArray(exerciseData)){
+      setPreview({
+        id: exerciseData.id,
+        name: exerciseData.name,
+        description: exerciseData.description,
+        duration: exerciseData.duration,
+        img: exerciseData.img
+      })
+      return
+    }
+    return
+  }, [])
+
+  const { description = "Loading...", duration = 0, id = 0, img ='/assets/icon.png', name = "Loading..." } = preview ? preview : {};
   const textColor = "rgba(74, 74, 74, 1)"
   return (
     <View>
@@ -20,7 +44,7 @@ const ExerciseDetailContent = ({ exerciseData }: ExerciseData) => {
         <YStack backgroundColor={'rgba(196, 176, 113, 0.55)'} borderBottomLeftRadius={10} borderBottomRightRadius={10} p="$3">
           <H2 color={textColor} >{name}</H2>
           <H3 color={textColor} pb="$2">{description}</H3>
-          <Paragraph color={"rgba(130, 128, 123, 1)"} style={{fontSize: 15}}>Duration: {duration} seconds</Paragraph>
+          <Paragraph color={"rgba(130, 128, 123, 1)"} style={{fontSize: 15}}>Duration: {duration ? formatTime(duration) : 0}</Paragraph>
         </YStack>
       </YStack>
     </View>

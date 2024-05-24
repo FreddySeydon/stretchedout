@@ -40,11 +40,11 @@ const ExercisePlayer = ({singleExercise, remainingDuration, setRemainingDuration
         <CountdownTimer onCountDownComplete={onCountDownComplete} initialDuration={duration} remainingDuration={remainingDuration} setRemainingDuration={setRemainingDuration} isPaused={isPaused} setIsPaused={setIsPaused} />
         <XStack justifyContent='center' alignItems='baseline'>
         {currentExerciseIndex === 0 ?
-            <Button disabled onPress={previousExercise} backgroundColor={'rgba(196, 176, 113, 0.0)'} color={'rgb(180, 180, 180)'} height={'fit-content'}><AntDesign name="leftcircle" size={50} color="rgba(196, 176, 113, 0.2)" /></Button>
-        : <Button onPress={previousExercise} backgroundColor={'rgba(196, 176, 113, 0.0)'} height={'fit-content'}><AntDesign name="leftcircle" size={50} color="rgba(196, 176, 113, 0.55)" /></Button>}
+            <Button disabled borderRadius={100} onPress={previousExercise} backgroundColor={'rgba(196, 176, 113, 0.0)'} color={'rgb(180, 180, 180)'} height={'fit-content'} pressStyle={{backgroundColor: 'transparent', borderColor: 'transparent', scale: 0.5}}><AntDesign name="leftcircle" size={50} color="rgba(196, 176, 113, 0.2)" /></Button>
+        : <Button onPress={previousExercise} backgroundColor={'rgba(196, 176, 113, 0.0)'} height={'fit-content'} pressStyle={{backgroundColor: 'transparent', borderColor: 'transparent', scale: 0.7}}><AntDesign name="leftcircle" size={50} color="rgba(196, 176, 113, 0.55)" /></Button>}
         
-        <Button onPress={togglePause} backgroundColor={'rgba(196, 176, 113, 0.0)'} height={'fit-content'} >{isPaused ? <AntDesign name="play" size={80} color="rgba(196, 176, 113, 0.55)" /> : <AntDesign name="pausecircle" size={80} color="rgba(196, 176, 113, 0.55)" />}</Button>
-        <Button onPress={onCountDownComplete} backgroundColor={'rgba(196, 176, 113, 0.0)'} height={'fit-content'} width={'fit-content'}>{isLastExercise ? <AntDesign name="flag" size={50} color="rgba(196, 176, 113, 0.55)" /> : <AntDesign name="rightcircle" size={50} color="rgba(196, 176, 113, 0.55)" />}</Button>
+        <Button onPress={togglePause} backgroundColor={'rgba(196, 176, 113, 0.0)'} height={'fit-content'} pressStyle={{backgroundColor: 'transparent', borderColor: 'transparent', scale: 0.9}} >{isPaused ? <AntDesign name="play" size={80} color="rgba(196, 176, 113, 0.55)" /> : <AntDesign name="pausecircle" pressStyle={{backgroundColor: '$colorTransparent'}} size={80} color="rgba(196, 176, 113, 0.55)" />}</Button>
+        <Button onPress={onCountDownComplete} backgroundColor={'rgba(196, 176, 113, 0.0)'} height={'fit-content'} width={'fit-content'} borderRadius={200} pressStyle={{backgroundColor: 'transparent', borderColor: 'transparent', scale: 0.7}} hoverStyle={{backgroundColor: '$backgroundTransparent'}}>{isLastExercise ? <AntDesign name="flag" size={50} color="rgba(196, 176, 113, 0.55)" /> : <AntDesign name="rightcircle" size={50} color="rgba(196, 176, 113, 0.55)" />}</Button>
         </XStack>
         </YStack>
       </YStack>
