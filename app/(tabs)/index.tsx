@@ -20,6 +20,8 @@ import { queryDatabase, openDatabaseFirst, getAllPrograms } from '~/utils/db';
 import SetupNotification from '~/components/SetupNotification';
 import * as Notifications from 'expo-notifications';
 import { Exercise, ProgramInfo, type QueryResult } from '~/types';
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['new NativeEventEmitter']);
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -59,9 +61,10 @@ export default function TabOneScreen() {
 
   return (
 	  <Theme name="light">
-      <ScrollView>
+      <ScrollView paddingTop="$5">
       <YStack flex={1} alignItems="center" justifyContent="center" pt='$6'>
-        <H2>StretchOut</H2>
+        <Image src={require('../../assets/stretchout_headline.png')} padding="$5" />
+        {/* <H2>StretchOut</H2> */}
         <SetupNotification />
         <H3 pt='$5'>Programs</H3>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>

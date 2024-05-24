@@ -6,6 +6,7 @@ import { notificationPermissionRequest } from '~/utils/notificationPermission'
 import scheduleDailyReminder from './scheduleDailyReminder'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Notifications from 'expo-notifications'
+import { Feather } from '@expo/vector-icons';
 
 const SetupNotification = () => {
     const [date, setDate] = useState(new Date());
@@ -34,6 +35,11 @@ const SetupNotification = () => {
     }
 
     const onChange: (event: any, selectedDate: Date | undefined) => Promise<void> = async (event, selectedDate) => {
+        setShow(false);
+        if(event.type === 'dismissed'){
+            //Handles dissmissed dialog on Android
+            return;
+        }
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
         setDate(currentDate);
@@ -62,7 +68,7 @@ const SetupNotification = () => {
     }
 
     return (
-        <View>
+        <View justifyContent='center' alignItems='center'>
             <XStack>
             <Button onPress={notificationSetupHandler} backgroundColor={'rgba(196, 176, 113, 0.55)'} fontSize={'$5'}>Set Reminder</Button>
             {show && (
@@ -73,10 +79,12 @@ const SetupNotification = () => {
                     is24Hour={true}
                 />
             )}
-            {isReminderSet ? <Button onPress={clearReminder} backgroundColor={'rgba(133, 119, 87, 0.72)'} size={'$3'} color={'white'} alignSelf='center' borderRadius={30} marginLeft={'$2'}>x</Button> : null}
-            </XStack>
-            {reminderTime ? <Text>Reminder set to: {reminderTime} </Text> : null}
             
+            </XStack>
+            <XStack alignItems='center'>
+            {reminderTime ? <Text>Reminder set to: {reminderTime} </Text> : null}
+            {isReminderSet ? <Button onPress={clearReminder}  size={'$3'} color={'white'} alignSelf='center' borderRadius={50} marginLeft={'$2'}><Feather name='trash-2' size={20} color={"red"} /></Button> : null}
+            </XStack>
         </View>
     )
 }
