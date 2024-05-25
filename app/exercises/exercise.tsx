@@ -20,10 +20,14 @@ const exercise = () => {
     const [remainingDuration, setRemainingDuration] = useState(exercises ? exercises.length > 0 ? exercises[0].duration : 0 : 0)
     const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0)
     const [isLastExercise, setIsLastExercise] = useState(false)
+    const [remainingPrepTime, setRemainingPrepTime] = useState<number>(5);
+    const [prepTimeOver, setPrepTimeOver] = useState(false);
     const navigation = useNavigation();
 
     const previousExercise = () => {
       setCurrentExerciseIndex(currentExerciseIndex-1)
+      setRemainingPrepTime(5);
+      setPrepTimeOver(false);
     }
 
     const handleExerciseEnd = () => {
@@ -43,6 +47,8 @@ const exercise = () => {
     const handleCountDownComplete = () => {
       setCurrentExerciseIndex((currentIndex) => {
         const nextIndex = currentIndex + 1;
+        setRemainingPrepTime(5);
+        setPrepTimeOver(false);
         if (nextIndex >= exercises!.length) {
           handleExerciseEnd()
           return currentIndex
@@ -81,7 +87,7 @@ const exercise = () => {
   return (
     <View>
         <YStack>
-          {isLoading ? <Spinner /> : <ExercisePlayer onCountDownComplete={handleCountDownComplete} numberOfExercises={exercises?.length} isLastExercise={isLastExercise} previousExercise={previousExercise} currentExerciseIndex={currentExerciseIndex} singleExercise={singleExercise} remainingDuration={remainingDuration} setRemainingDuration={setRemainingDuration} /> }
+          {isLoading ? <Spinner /> : <ExercisePlayer onCountDownComplete={handleCountDownComplete} numberOfExercises={exercises?.length} isLastExercise={isLastExercise} previousExercise={previousExercise} currentExerciseIndex={currentExerciseIndex} singleExercise={singleExercise} remainingDuration={remainingDuration} setRemainingDuration={setRemainingDuration} remainingPrepTime={remainingPrepTime} setRemainingPrepTime={setRemainingPrepTime} prepTimeOver={prepTimeOver} setPrepTimeOver={setPrepTimeOver}/> }
         </YStack>
     </View>
   )

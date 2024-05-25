@@ -16,10 +16,13 @@ type ExercisePlayerProps = {
   currentExerciseIndex: number, 
   isLastExercise: boolean,
   numberOfExercises?: number | undefined,
-
+  setPrepTimeOver: React.Dispatch<React.SetStateAction<boolean>>,
+  prepTimeOver: boolean,
+  setRemainingPrepTime: React.Dispatch<React.SetStateAction<number>>;
+  remainingPrepTime: number;
 }
 
-const ExercisePlayer = ({singleExercise, remainingDuration, setRemainingDuration, onCountDownComplete, previousExercise, currentExerciseIndex, isLastExercise, numberOfExercises}: ExercisePlayerProps) => {
+const ExercisePlayer = ({singleExercise, remainingDuration, setRemainingDuration, onCountDownComplete, previousExercise, currentExerciseIndex, isLastExercise, numberOfExercises, setPrepTimeOver, prepTimeOver, setRemainingPrepTime, remainingPrepTime}: ExercisePlayerProps) => {
   
    const {name = "", id = 0, duration = 0, img = ""} = singleExercise ? singleExercise : {}
    const [isPaused, setIsPaused] = useState(false);
@@ -37,7 +40,7 @@ const ExercisePlayer = ({singleExercise, remainingDuration, setRemainingDuration
           {numberOfExercises ? <Text>{currentExerciseIndex + 1}/{numberOfExercises}</Text> : null}
         </YStack>
         <YStack >
-        <CountdownTimer onCountDownComplete={onCountDownComplete} initialDuration={duration} remainingDuration={remainingDuration} setRemainingDuration={setRemainingDuration} isPaused={isPaused} setIsPaused={setIsPaused} />
+        <CountdownTimer onCountDownComplete={onCountDownComplete} initialDuration={duration} remainingDuration={remainingDuration} setRemainingDuration={setRemainingDuration} isPaused={isPaused} setIsPaused={setIsPaused} remainingPrepTime={remainingPrepTime} setRemainingPrepTime={setRemainingPrepTime} prepTimeOver={prepTimeOver} setPrepTimeOver={setPrepTimeOver} />
         <XStack justifyContent='center' alignItems='baseline'>
         {currentExerciseIndex === 0 ?
             <Button disabled borderRadius={100} onPress={previousExercise} backgroundColor={'rgba(196, 176, 113, 0.0)'} color={'rgb(180, 180, 180)'} height={'fit-content'} pressStyle={{backgroundColor: 'transparent', borderColor: 'transparent', scale: 0.5}}><AntDesign name="leftcircle" size={50} color="rgba(196, 176, 113, 0.2)" /></Button>
