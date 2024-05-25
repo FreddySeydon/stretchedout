@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { useLocalSearchParams, useNavigation } from 'expo-router'
-import { Text, View, Spinner } from 'tamagui'
+import { Text, View, Spinner, Button } from 'tamagui'
 import { getOneExercise } from '~/utils/db'
 import ExerciseDetailContent from '~/components/ExerciseDetailContent'
 import ExerciseStartButton from '~/components/ExerciseStartButton'

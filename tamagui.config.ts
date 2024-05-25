@@ -58,7 +58,7 @@ const bodyFont = createInterFont();
 const config = createTamagui({
 	light: {
 		color: {
-			background: "gray",
+			background: "rgba(196, 176, 113, 0.55)",
 			text: "black",
 		}
 	},
