@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Text, View, Spinner, Button, XStack } from 'tamagui'
+import { Text, View, Spinner, Button, XStack, YStack } from 'tamagui'
 import { Platform } from 'react-native'
 import RNDateTimePicker from '@react-native-community/datetimepicker'
 import { notificationPermissionRequest } from '~/utils/notificationPermission'
@@ -70,7 +70,7 @@ const SetupNotification = () => {
     return (
         <View justifyContent='center' alignItems='center'>
             <XStack>
-            <Button onPress={notificationSetupHandler} backgroundColor={'rgba(196, 176, 113, 0.55)'} fontSize={'$5'}>Set Reminder</Button>
+            {!isReminderSet ? <Button onPress={notificationSetupHandler} backgroundColor={'rgba(196, 176, 113, 0.55)'} fontSize={'$5'}>Set Reminder</Button> : null}
             {show && (
                 <RNDateTimePicker
                     mode={mode}
@@ -81,10 +81,10 @@ const SetupNotification = () => {
             )}
             
             </XStack>
-            <XStack alignItems='center'>
-            {reminderTime ? <Text>Reminder set to: {reminderTime} </Text> : null}
-            {isReminderSet ? <Button onPress={clearReminder}  size={'$3'} color={'white'} alignSelf='center' borderRadius={50} marginLeft={'$2'}><Feather name='trash-2' size={20} color={"red"} /></Button> : null}
-            </XStack>
+            <YStack alignItems='center' justifyContent='center'>
+            {reminderTime ? <Text pt='$2'>Reminder set to: {reminderTime} </Text> : null}
+            {isReminderSet ? <Button onPress={clearReminder}  size={'$2'} color={'white'} alignSelf='center' borderRadius={10} marginLeft={'$0'}><Feather name='trash-2' size={20} color={"red"} /></Button> : null}
+            </YStack>
         </View>
     )
 }

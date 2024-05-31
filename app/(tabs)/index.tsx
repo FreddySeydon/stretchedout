@@ -20,8 +20,7 @@ import { queryDatabase, openDatabaseFirst, getAllPrograms } from '~/utils/db';
 import SetupNotification from '~/components/SetupNotification';
 import * as Notifications from 'expo-notifications';
 import { Exercise, ProgramInfo, type QueryResult } from '~/types';
-import { LogBox } from 'react-native';
-LogBox.ignoreLogs(['new NativeEventEmitter']);
+
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -61,12 +60,15 @@ export default function TabOneScreen() {
 
   return (
 	  <Theme name="light">
+    <YStack style={{height: "15vh"}} height={35} backgroundColor={"white"} />
       <ScrollView paddingTop="$5">
-      <YStack flex={1} alignItems="center" justifyContent="center" pt='$6'>
-        <Image src={require('../../assets/stretchout_headline.png')} />
+      <YStack flex={1} alignItems="center" justifyContent="center" pt='$2'>
+        <Image src={require('../../assets/stretchout_headline.png')} pb='$5' />
         {/* <H2>StretchOut</H2> */}
+        <View pt='$4'>
         <SetupNotification />
-        <H3 pt='$5'>Programs</H3>
+        </View>
+        <H3 pt='$3'>Programs</H3>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <XStack gap="$3" p="$5" mb="$3" pt='$3' style={{paddingLeft:"5vw", paddingRight:"5vw"}}>
           {isLoading ? <Spinner /> : 
