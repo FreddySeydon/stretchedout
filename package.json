@@ -1,6 +1,6 @@
 {
   "name": "stretchout",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "scripts": {
     "android": "expo run:android",
     "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",
@@ -57,9 +57,6 @@
     "extends": "universe/native"
   },
   "resolutions": {
-    "expo-modules-core": "~1.11.0"
-  },
-  "overrides": {
     "expo-modules-core": "~1.11.0"
   },
   "expo": {
