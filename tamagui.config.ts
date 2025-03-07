@@ -88,7 +88,7 @@ const config = createTamagui({
 		tall: { minHeight: 820 },
 		hoverNone: { hover: "none" },
 		pointerCoarse: { pointer: "coarse" },
-	}),
+	})
 });
 
 type AppConfig = typeof config;

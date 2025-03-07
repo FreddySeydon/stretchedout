@@ -69,8 +69,8 @@ export default function TabOneScreen() {
         <SetupNotification />
         </View>
         <H3 pt='$3'>Programs</H3>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <XStack gap="$3" p="$5" mb="$3" pt='$3' style={{paddingLeft:"5vw", paddingRight:"5vw"}}>
+        <ScrollView pl="$8" pr="$8" horizontal showsHorizontalScrollIndicator={false}>
+        <XStack gap="$3" p="$5" mb="$3" pt='$3' pl="$8" style={{paddingLeft:"5vw", paddingRight:"5vw"}}>
           {isLoading ? <Spinner /> : 
           programRows.map((program) => (
             <ProgramCard key={program.id} program={program}/>
